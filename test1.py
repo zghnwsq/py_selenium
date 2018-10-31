@@ -95,7 +95,7 @@ class MyTestCase(unittest.TestCase):
         #     print params[5].encode('utf-8')
 
         result = executetest.ExecuteTest().execute2('/Users/ted/Documents/testlog/testCase1.xlsx', 'sheet1')
-        self.assertEqual(True, result, u'用例执行失败，请查看日志')  #111
+        self.assertEqual(True, result, u'用例执行失败，请查看日志')  #111222
 
 
 if __name__ == '__main__':
