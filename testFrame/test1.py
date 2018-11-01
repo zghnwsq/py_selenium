@@ -1,13 +1,12 @@
 # coding=utf-8
 import unittest
-from selenium.webdriver.chrome.webdriver import WebDriver as Chrome
 # import logging
 # import time
 # import keywords
 # import log
 # import filewrite
 # import time
-import executetest, xlrd
+import executetest
 
 
 class MyTestCase(unittest.TestCase):
