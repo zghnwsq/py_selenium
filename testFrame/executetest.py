@@ -14,7 +14,7 @@ class ExecuteTest:
         time_stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         # 根据时间戳生成log对象
         # lg =  log.Log('/Users/ted/Documents/testlog/'+time_stamp+'.txt', "info")
-        lg = log.Log('/Users/ted/Documents/testlog'+time_stamp+'.txt', "info")
+        lg = log.Log('/Users/ted/Documents/testlog' + time_stamp + '.txt', "info")
         # 打开excel文件
         sht = xlrd.open_workbook(filepath).sheet_by_name(sheet)
         # 读取用例名
@@ -37,7 +37,7 @@ class ExecuteTest:
         # log_read = open('/Users/ted/Documents/testlog/'+time_stamp+'.txt', 'r')
         log_read = open('/Users/ted/Documents/testlog' + time_stamp + '.txt', 'r')
         # fr = filewrite.FileWrite('/Users/ted/Documents/testlog/'+time_stamp+'.html')
-        fr = filewrite.FileWrite('/Users/ted/Documents/testlog'+time_stamp+'.html')
+        fr = filewrite.FileWrite('/Users/ted/Documents/testlog' + time_stamp + '.html')
         fr.write_head(test_case_name, res)
         for i in log_read.readlines():
             if i.find("PASS") != -1:
