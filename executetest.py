@@ -40,7 +40,10 @@ class ExecuteTest:
         fr = filewrite.FileWrite('/Users/ted/Documents/testlog'+time_stamp+'.html')
         fr.write_head(test_case_name, res)
         for i in log_read.readlines():
-            fr.file_write('<li>'+i+'</li>')
+            if i.find("PASS") != -1:
+                fr.file_write('<li style="color:green">'+i+'</li>')
+            else:
+                fr.file_write('<li style="color:red">' + i + '</li>')
         fr.write_end()
         return res
 
