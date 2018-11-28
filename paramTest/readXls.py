@@ -20,9 +20,9 @@ class dataRead:
             for j in range(1, col, 1):
                 # print type(sheet.row_values(i)[j])
                 # row_data[col_name[j]] = sheet.cell(i, j).value
-                row_data[col_name[j]] = sheet.row_values(i)[j]
+                row_data[col_name[j]] = str(sheet.row_values(i)[j])
                 # row_data[col_name[j]] = sheet.cell_value(i, j).encode('utf-8')
                 # print row_data
-                data.append(row_data)
+            data.append(row_data)
         # print data
         return data

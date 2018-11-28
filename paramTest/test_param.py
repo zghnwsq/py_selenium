@@ -12,8 +12,7 @@ class MyTestCase(unittest.TestCase):
     def setUp(self):
         print '-------begin-------'
 
-    @ddt.data(*readXls.dataRead().read_data('/Users/ted/Documents/test/1.xlsx', 0))
-    # @ddt.data(*test_data)
+    @ddt.data(*readXls.dataRead().read_data('D:/1.xlsx', 0))
     def test_something(self, data):
         print data
         print data['username']
