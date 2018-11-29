@@ -357,10 +357,12 @@ table       { font-size: 100%; }
     # Report
     #
     # 汉化,加美化效果 --Findyou
+    # 原来的失败按钮: <a class="btn btn-danger" href='javascript:showCase(1)'>失败{ %(fail)s }</a>
+    # 修改失败按钮为'失败&错误(失败+错误数量)',因为点击按钮实际展开的是失败+错误的用例详情  --ted
     REPORT_TMPL = """
 <p id='show_detail_line'>
 <a class="btn btn-primary" href='javascript:showCase(0)'>概要{ %(passrate)s }</a>
-<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ %(fail)s }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败&错误{ %(failerror)s }</a>
 <a class="btn btn-success" href='javascript:showCase(2)'>通过{ %(Pass)s }</a>
 <a class="btn btn-info" href='javascript:showCase(3)'>所有{ %(count)s }</a>
 </p>
@@ -487,7 +489,6 @@ class _TestResult(TestResult):
         sys.stdout = stdout_redirector
         sys.stderr = stderr_redirector
 
-
     def complete_output(self):
         """
         Disconnect output redirection and return buffer.
@@ -500,13 +501,11 @@ class _TestResult(TestResult):
             self.stderr0 = None
         return self.outputBuffer.getvalue()
 
-
     def stopTest(self, test):
         # Usually one of addSuccess, addError or addFailure would have been called.
         # But there are some path in unittest that would bypass this.
         # We must disconnect stdout in stopTest(), which is guaranteed to be called.
         self.complete_output()
-
 
     def addSuccess(self, test):
         self.success_count += 1
@@ -551,10 +550,11 @@ class HTMLTestRunner(Template_mixin):
     """
     """
     def __init__(self, stream=sys.stdout, verbosity=1,title=None,description=None,tester=None):
-        # 修改为根据base,自动生成带时间戳的文件名
+        # 修改为根据base,自动生成带时间戳的文件名  --ted
         time_stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         file_path = stream + '/report/' + time_stamp + '.html'
-        print '{url}/report/' + time_stamp + '.html'
+        # 提示报告访问地址 --ted
+        print 'report : http://{host}/report/' + time_stamp + '.html'
         self.stream = file(file_path, 'wb')
         self.verbosity = verbosity
         if title is None:
@@ -581,7 +581,6 @@ class HTMLTestRunner(Template_mixin):
         print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
         return result
 
-
     def sortResult(self, result_list):
         # unittest does not seems to run in any particular order.
         # Here at least we want to group them together by class.
@@ -596,7 +595,7 @@ class HTMLTestRunner(Template_mixin):
         r = [(cls, rmap[cls]) for cls in classes]
         return r
 
-    #替换测试结果status为通过率 --Findyou
+    # 替换测试结果status为通过率 --Findyou
     def getReportAttributes(self, result):
         """
         Return report attributes as a list of (name, value).
@@ -642,7 +641,7 @@ class HTMLTestRunner(Template_mixin):
     def _generate_stylesheet(self):
         return self.STYLESHEET_TMPL
 
-    #增加Tester显示 -Findyou
+    # 增加Tester显示 -Findyou
     def _generate_heading(self, report_attrs):
         a_lines = []
         for name, value in report_attrs:
@@ -659,7 +658,7 @@ class HTMLTestRunner(Template_mixin):
         )
         return heading
 
-    #生成报告  --Findyou添加注释
+    # 生成报告  --Findyou添加注释
     def _generate_report(self, result):
         rows = []
         sortedResult = self.sortResult(result.result)
@@ -697,12 +696,13 @@ class HTMLTestRunner(Template_mixin):
             test_list = ''.join(rows),
             count = str(result.success_count+result.failure_count+result.error_count),
             Pass = str(result.success_count),
-            fail = str(result.failure_count),
+            fail = str(result.failure_count),  # 这个改为只用于总计 --ted
+            # 修改失败按钮统计数量为 失败+错误 用例数 --ted
+            failerror=str(result.failure_count + result.error_count),
             error = str(result.error_count),
             passrate =self.passrate,
         )
         return report
-
 
     def _generate_report_test(self, rows, cid, tid, n, t, o, e):
         # e.g. 'pt1.1', 'ft1.1', etc
