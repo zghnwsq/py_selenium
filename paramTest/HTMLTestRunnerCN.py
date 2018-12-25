@@ -554,7 +554,7 @@ class HTMLTestRunner(Template_mixin):
         time_stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         file_path = stream + '/report/' + time_stamp + '.html'
         # 提示报告访问地址 --ted
-        print 'report : http://{host}/report/' + time_stamp + '.html'
+        print 'report : ./report/' + time_stamp + '.html'
         self.stream = file(file_path, 'wb')
         self.verbosity = verbosity
         if title is None:
