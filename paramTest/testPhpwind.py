@@ -9,7 +9,7 @@ import TestLogin
 import ddt
 import readXls
 
-data = readXls.readXls().read_data_by_sheet_name('D:/1.xlsx', 'phpwind')
+data = readXls.readXls().read_data_by_sheet_name('../1.xlsx', 'phpwind')
 
 
 @ddt.ddt
@@ -193,7 +193,8 @@ if __name__ == '__main__':
     # unittest.main()
     # fileBase = 'C:/Users/Administrator/PycharmProjects/selenium'
     # 利用web服务,提供报告的网页浏览
-    fileBase = 'C:/wamp/www'
+    # fileBase = 'C:/wamp/www'
+    fileBase = '../report'  # 分布式执行报告目录
     runner = HTMLTestRunnerCN.HTMLTestRunner(
         stream=fileBase,
         title='{ Test Report }',
