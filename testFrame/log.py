@@ -37,7 +37,7 @@ class Log:
         self.formatter = logging.Formatter(' %(asctime)s - %(levelname)s: %(message)s',
                                       datefmt='%a, %d %b %Y %H:%M:%S')
         self.handler.setFormatter(self.formatter)
-        # 第五步，将logger添加到handler里面
+        # 第五步，将logger添加到handler里面ssss
         self.logger.addHandler(self.handler)
 
     def write(self, msg, level):
