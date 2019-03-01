@@ -198,7 +198,7 @@ if __name__ == '__main__':
     runner = HTMLTestRunnerCN.HTMLTestRunner(
         stream=fileBase,
         title='{ Test Report }',
-        description='phpwind',
+        description=u'phpwind登录和注册',
         tester='ted'
     )
     suit = unittest.TestSuite()
@@ -214,4 +214,5 @@ if __name__ == '__main__':
     #               MyTestCase('test_register_username_illegal_char'), TestLogin.TestLogin('test_a')]
     # suit.addTests(test_cases)
     runner.run(suit)
+
 
