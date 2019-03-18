@@ -1,7 +1,9 @@
 # coding:utf-8
 import unittest
 from selenium.webdriver.ie.webdriver import WebDriver as ie
+from selenium.webdriver.remote.webdriver import WebDriver as remote
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions
 import HTMLTestRunnerCN
 # from selenium.webdriver.common.action_chains import ActionChains
@@ -14,8 +16,9 @@ data = readXls.readXls().read_data_by_sheet_name('./testcase/1.xlsx', 'phpwind')
 
 @ddt.ddt
 class MyTestCase(unittest.TestCase):
-
     def setUp(self):
+        self.dc = DesiredCapabilities.CHROME
+        self.re = remote('http://127.0.0.1:4444/wd/hub', desired_capabilities=self.dc)
         self.dr = ie()
         self.dr.set_page_load_timeout(30)
         self.wait = WebDriverWait(self.dr, 30)
